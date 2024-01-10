@@ -1,0 +1,12 @@
+
+# Ignore .env files
+*.env
+
+# Ignore __pycache__ directories
+__pycache__/
+
+# Ignore Jupyter Notebook checkpoint files
+.ipynb_checkpoints/
+
+# Ignore .ipynb files (if you don't want them in version control)
+*.ipynb
