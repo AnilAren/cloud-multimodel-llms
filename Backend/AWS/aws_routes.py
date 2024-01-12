@@ -1,8 +1,5 @@
 from AWS.aws_adapter import AWSBedrockAdapter
 from flask import Blueprint, request
-from dotenv import load_dotenv
-import logging
-load_dotenv()
 
 AWS_text_llm_Blueprint= Blueprint("aws_llm",__name__)
 
