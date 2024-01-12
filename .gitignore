@@ -1,4 +1,4 @@
-
+.gitignore
 # Ignore .env files
 *.env
 
@@ -10,3 +10,6 @@ __pycache__/
 
 # Ignore .ipynb files (if you don't want them in version control)
 *.ipynb
+setup_files.egg-info/
+setup.py
+test.py

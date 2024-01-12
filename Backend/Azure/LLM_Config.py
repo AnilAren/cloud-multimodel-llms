@@ -6,20 +6,20 @@ load_dotenv()
 # Using Sigleton ---> means same object is getting used every time for a session(i.e untill we restart out backend code)
 
 class LLMConfigSingleton:
-    _instances = {}
+    _instances = None
 
-    def __new__(cls, config_name):
-        if config_name not in cls._instances:
-            cls._instances[config_name] = super(LLMConfigSingleton, cls).__new__(cls)
-            cls._instances[config_name].__init__(config_name)
-        return cls._instances[config_name]
+    def __new__(cls, ):
+        if  not cls._instances:
+            cls._instances = super(LLMConfigSingleton, cls).__new__(cls)
+            cls._instances.__init__()
+        return cls._instances
 
-    def __init__(self,config_name):
+    def __init__(self):
         try:
             if not getattr(self, "_initialized", False):
-                api_key_var = f'{config_name}_OPENAI_API_KEY'
-                endpoint_var = f'{config_name}_OPENAI_API_BASE'
-                version_var = f'{config_name}_OPENAI_API_VERSION'
+                api_key_var = "AZURE_OPENAI_API_KEY" 
+                endpoint_var = 'AZURE_OPENAI_API_BASE'
+                version_var = 'AZURE_OPENAI_API_VERSION'
                 ic(os.getenv(api_key_var))
                 self.llm_instance = AzureOpenAI(
                     api_key=os.getenv(api_key_var),
@@ -31,13 +31,13 @@ class LLMConfigSingleton:
             return {"status_code": 500, "status": "error", "message": str(e)}
 
 
-def Azure_gpt_config(config_name):
-    ic(f"Entering Azure LLM ({config_name})")
-    llm_singleton = LLMConfigSingleton(config_name)
+def Azure_gpt_config():
+    ic("Entering Azure LLM ")
+    llm_singleton = LLMConfigSingleton()
     ic(llm_singleton.llm_instance)
-    ic(f"Exiting Azure LLM CONFIG ({config_name})")
+    ic("Exiting Azure LLM CONFIG")
     return llm_singleton.llm_instance
 
-# Config Settings:
-# Azure_GPT_35_turbo 
-# Azure_GPT_4_32k
+if __name__ == '__main__':
+    for i in range(10):
+        print(Azure_gpt_config())

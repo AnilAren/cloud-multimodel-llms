@@ -3,31 +3,31 @@ from Azure.LLM_Config import Azure_gpt_config
 from flask import Flask, request, jsonify, Blueprint
 from icecream import ic
 
-Azure_gpt_35_turbo_Blueprint= Blueprint("Azure_35_turbo",__name__)
-
+Azure_GPT_Blueprint= Blueprint("Azure_GPT",__name__)
 
 #==============================================COMPLETION/TEXT===============================================================
 # we can create a common function to call both completion and chat completion as the only difference is how we are passing the msg --> not implementing this logic to make it more understandable
 
-@Azure_gpt_35_turbo_Blueprint.route("/completion", methods=["POST"])  # Azure 35 Turbo ==> text or completion API
+@Azure_GPT_Blueprint.route("/completion", methods=["POST"])  # Azure ==> text or completion API
 def text_completion():
     try:
-        # configure Azure LLM
-        llm = Azure_gpt_config("Azure_GPT_35_turbo")
-        print(llm)
         data = request.get_json()
+        model_name= data['model_name']
+        # configure Azure LLM
+        llm = Azure_gpt_config()
+        print(llm)
         
-        question = data['question']
+        prompt = data['prompt']
         top_p = data['top_p']
         temperature = data['temperature']
         max_tokens = data['max_tokens']
         # creating response
         resp = llm.chat.completions.create(
-            model="gpt-35-turbo",
+            model= model_name,
             messages=[
                 {
                 "role": "user",
-                "content": question,
+                "content": prompt,
             },
                 ],
             temperature= temperature,
@@ -45,14 +45,16 @@ def text_completion():
 
 conversation_history=[]
 
-@Azure_gpt_35_turbo_Blueprint.route("/chat-completion", methods=["POST"])
+@Azure_GPT_Blueprint.route("/chat-completion", methods=["POST"])
 def chat_completion(): # Chat Completion with chat history compatibility
     try:
-        llm = Azure_gpt_config("Azure_GPT_35_turbo")
         data = request.get_json()
+        model_name= data['model_name']
+        # configure Azure LLM
+        llm = Azure_gpt_config()
         
-        question = data.get('question')
-        question = data['question']
+        prompt = data.get('prompt')
+        prompt = data['prompt']
         top_p = data['top_p']
         temperature = data['temperature']
         max_tokens = data['max_tokens']
@@ -65,10 +67,10 @@ def chat_completion(): # Chat Completion with chat history compatibility
         else:
             messages = conversation_history[:]
             
-        messages = add_msg("user", question, messages)
+        messages = add_msg("user", prompt, messages)
         
         resp = llm.chat.completions.create(
-            model="gpt-35-turbo",
+            model=model_name,
             messages=messages,
             temperature= temperature,
             top_p=top_p,
@@ -91,7 +93,7 @@ def add_msg(role,data,msg):  # appending messages to the model message parameter
     return msg
 
 #-----------------------------------------------------------------------------------------------
-@Azure_gpt_35_turbo_Blueprint.route("/reset-conversation-history", methods=["POST"])
+@Azure_GPT_Blueprint.route("/reset-conversation-history", methods=["POST"])
 def reset_conversation_history(): # when we refresh the page the chat history remains so for fresh chat we need to reset the Chat history
     ic("going inside reset-conversation-history API")
     try:
