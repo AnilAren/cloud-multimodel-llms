@@ -27,7 +27,7 @@ Azure:
         2. temperature
         3. max_tokens
 
-    ![text generation](https://github.com/AnilAren/cloud-multimodel-llms/blob/main/images/pic2.jpg?raw=true)
+     ![image-azure](images/pic2.png)
 
     For image generation, we use DALL-E 2
 
