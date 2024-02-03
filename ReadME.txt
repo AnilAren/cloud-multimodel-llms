@@ -1,4 +1,4 @@
-
+!(pic1.png)
 
 Why POST not GET when calling LLM?
 - When working with OpenAI's GPT models or other Language Models, API requests that involve generating text or processing large input data (such as conversation history for chat-based models) often use POST requests. This is because the input data may be large, and including it in the request body is more practical and secure.
