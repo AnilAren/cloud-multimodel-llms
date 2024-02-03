@@ -57,4 +57,4 @@ For AWS integration, I utilize Boto3, the AWS SDK for Python, to interact with A
 
 I implement a singleton pattern to ensure a single client and object instantiation for each model, enhancing efficiency and resource management.
 
-![AWS-text-generator](images/pic3.jpg)
+![AWS-text-generator](images/pic3.png)
