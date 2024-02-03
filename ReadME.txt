@@ -27,7 +27,7 @@ Azure:
         2. temperature
         3. max_tokens
 
-     ![image-azure](images/pic2.png)
+     ![image-azure](LLM_Model/images/pic2.jpg)
 
     For image generation, we use DALL-E 2
 
