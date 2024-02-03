@@ -30,9 +30,11 @@ I integrate Azure's GPT-3.5-Turbo and GPT-4-32k models with modularity in mind t
     2. `temperature`
     3. `max_tokens`
 
-![Azure-image-generator](images/pic2.jpg)
+![Azure-text-generator](images/pic2.jpg)
 
 For image generation, I leverage DALL-E 2.
+
+![Azure-image-generator](images/pic4.png)
 
 ## AWS Integration
 
@@ -55,5 +57,4 @@ For AWS integration, I utilize Boto3, the AWS SDK for Python, to interact with A
 
 I implement a singleton pattern to ensure a single client and object instantiation for each model, enhancing efficiency and resource management.
 
-By following these guidelines, my GitHub README provides clear instructions and insights into my project's integration with LLMs and cloud services.
-
+![AWS-text-generator](images/pic3.jpg)
